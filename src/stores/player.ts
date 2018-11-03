@@ -198,6 +198,32 @@ export const toggleLargeSeek = (): IToggleLargeSeekAction => ({
   type: TOGGLE_LARGE_SEEK,
 });
 
+/**
+ * Add to queue action
+ */
+export interface IAddToQueueAction {
+  type: 'ADD_TO_QUEUE';
+  episode: App.IEpisodeInfo;
+}
+const ADD_TO_QUEUE: IAddToQueueAction['type'] = 'ADD_TO_QUEUE';
+export const addToQueue = (episode: App.IEpisodeInfo): IAddToQueueAction => ({
+  type: ADD_TO_QUEUE,
+  episode,
+});
+
+/**
+ * Remove ith element from play queue
+ */
+interface IRemoveFromQueueAction {
+  type: 'REMOVE_FROM_QUEUE';
+  position: number;
+}
+const REMOVE_FROM_QUEUE: IRemoveFromQueueAction['type'] = 'REMOVE_FROM_QUEUE';
+export const removeFromQueue = (position: number): IRemoveFromQueueAction => ({
+  type: REMOVE_FROM_QUEUE,
+  position,
+});
+
 export type PlayerActions =
   | IPlayEpisodeAction
   | IPauseAction
@@ -215,6 +241,8 @@ export type PlayerActions =
   | IManualSeekUpdateAction
   | ISetBufferAction
   | IToggleLargeSeekAction
+  | IAddToQueueAction
+  | IRemoveFromQueueAction
   | INoopAction;
 
 export interface IPlayerState {
@@ -243,6 +271,9 @@ export const audioSeekUpdateEpic: Epic<PlayerActions, INoopAction, IState> = (ac
     }),
     map(noop),
   );
+
+export const episodeEndPlaylistSkipEpic: Epic<PlayerActions, ISkipToNextAction, IState> = action$ =>
+  action$.ofType(STOP_EPISODE).pipe(map(skipToNextEpisode));
 
 export const playerAudioEpic: Epic<PlayerActions, PlayerActions, IState> = (action$, store) =>
   action$.pipe(
@@ -346,17 +377,20 @@ export const player = (
       return {
         ...state,
         currentEpisode,
+        seekPosition: 0,
         duration: duration || 0,
+        state: 'playing',
       };
     }
     case SKIP_TO_PREV_EPISODE: {
-      const currentEpisode =
-        state.currentEpisode === 0 ? state.queue.length - 1 : (state.currentEpisode - 1) / state.queue.length;
+      const currentEpisode = Math.max(0, state.currentEpisode - 1);
       const { duration } = state.queue[currentEpisode];
       return {
         ...state,
         currentEpisode,
+        seekPosition: 0,
         duration: duration || 0,
+        state: 'playing',
       };
     }
     case MANUAL_SEEK_UPDATE:
@@ -391,6 +425,18 @@ export const player = (
       return {
         ...state,
         isLargeSeekVisible: !state.isLargeSeekVisible,
+      };
+    case ADD_TO_QUEUE:
+      return {
+        ...state,
+        queue: [...state.queue, action.episode],
+      };
+    case REMOVE_FROM_QUEUE:
+      const newQueue = [...state.queue];
+      newQueue.splice(action.position, 1); // mutates
+      return {
+        ...state,
+        queue: newQueue,
       };
     default:
       return state;

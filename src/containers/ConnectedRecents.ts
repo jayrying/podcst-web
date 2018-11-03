@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { IState } from '../stores/root';
 
-import { playEpisode } from '../stores/player';
+import { addToQueue, playEpisode } from '../stores/player';
 
 import { recents as recentEpisodes } from '../utils/recents';
 
@@ -19,6 +19,7 @@ const mapState = ({ app: { theme }, player: { currentEpisode, queue }, subscript
 });
 
 const mapDispatch = {
+  addToQueue,
   playEpisode,
 };
 

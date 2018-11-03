@@ -12,6 +12,10 @@ import { App } from '../typings';
 
 import { getEpisodeRoute, monthName } from '../utils';
 
+import { IAddToQueueAction } from '../stores/player';
+
+import ConnectedAddToQueueButton from '../containers/ConnectedAddToQueueButton';
+
 import ConnectedPlayButton from '../containers/ConnectedPlayButton';
 
 const listItem = (theme: App.ITheme) =>
@@ -79,11 +83,12 @@ interface IEpisodeRowProps {
   episode: App.IEpisodeInfo;
   isCurrentEpisode: boolean;
   theme: App.ITheme;
+  add: () => IAddToQueueAction;
   play: () => void;
 }
 
 const EpisodeRow = (props: IEpisodeRowProps) => {
-  const { isCurrentEpisode, episode, play, theme } = props;
+  const { add, isCurrentEpisode, episode, play, theme } = props;
 
   const { cover, episodeArt, feed, title, published, duration } = episode;
 
@@ -113,6 +118,7 @@ const EpisodeRow = (props: IEpisodeRowProps) => {
             <p>{minutes ? minutesSuffix : ''}</p>
           </div>
           <div className={container}>
+            <ConnectedAddToQueueButton add={add} />
             <ConnectedPlayButton isCurrentEpisode={isCurrentEpisode} play={play} />
           </div>
         </div>

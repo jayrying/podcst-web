@@ -6,6 +6,7 @@ import * as React from 'react';
 
 import { style } from 'typestyle';
 
+import AddIcon from './AddIcon';
 import BackIcon from './BackIcon';
 import DayIcon from './DayIcon';
 import InfoIcon from './InfoIcon';
@@ -20,6 +21,7 @@ import SettingsIcon from './SettingsIcon';
 export type IconType =
   | 'play'
   | 'pause'
+  | 'add'
   | 'settings'
   | 'night'
   | 'day'
@@ -40,6 +42,8 @@ const getIcon = (icon: IconProps['icon']): JSX.Element => {
     return <PlayIcon />;
   } else if (icon === 'pause') {
     return <PauseIcon />;
+  } else if (icon === 'add') {
+    return <AddIcon />;
   } else if (icon === 'settings') {
     return <SettingsIcon />;
   } else if (icon === 'night') {

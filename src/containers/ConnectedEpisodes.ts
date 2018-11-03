@@ -12,7 +12,7 @@ import { getEpisodes } from '../stores/podcasts';
 
 import { addSubscription, removeSubscription } from '../stores/subscriptions';
 
-import { playEpisode } from '../stores/player';
+import { addToQueue, playEpisode } from '../stores/player';
 
 import Episodes from '../components/Episodes';
 
@@ -29,6 +29,7 @@ const mapState = (
 });
 
 const mapDispatch = {
+  addToQueue,
   getEpisodes,
   playEpisode,
   addSubscription,

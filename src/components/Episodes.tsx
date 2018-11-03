@@ -6,6 +6,8 @@ import { App, ISubscriptionsMap } from '../typings';
 
 import { IPodcastsState } from '../stores/podcasts';
 
+import { IAddToQueueAction } from '../stores/player';
+
 import { imageWithPlaceholder, linkifyText, scrollToTop, stripHost } from '../utils';
 import { normalizeEl } from '../utils/styles';
 
@@ -144,6 +146,7 @@ interface IEpisodesProps {
   info: IPodcastsState;
   currentEpisode: App.IEpisodeInfo | null;
   subscriptions: ISubscriptionsMap;
+  addToQueue: (episode: App.IEpisodeInfo) => IAddToQueueAction;
   getEpisodes: (feed: string) => void;
   playEpisode: (episode: App.IEpisodeInfo) => void;
   addSubscription: (feed: string, podcasts: App.IPodcastEpisodesInfo) => void;
@@ -179,12 +182,14 @@ class Episodes extends React.PureComponent<IEpisodesProps & RouteComponentProps<
   }
 
   public renderEpisode = (episode: App.IEpisodeInfo) => {
-    const { currentEpisode, playEpisode, theme } = this.props;
+    const { addToQueue, currentEpisode, playEpisode, theme } = this.props;
 
+    const add = () => addToQueue(episode);
     const play = () => playEpisode(episode);
 
     return (
       <EpisodeRow
+        add={add}
         key={episode.title}
         isCurrentEpisode={currentEpisode === episode}
         episode={episode}
