@@ -7,7 +7,7 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
@@ -127,7 +127,7 @@ module.exports = env => {
       extensions: ['.webpack.js', '.web.js', '.ts', '.tsx', '.js', '.json'],
     },
     plugins: removeEmpty([
-      new CleanWebpackPlugin('./dist'),
+      new CleanWebpackPlugin(),
       new CopyWebpackPlugin([{ from: '../public' }]),
       new webpack.HashedModuleIdsPlugin(),
       new webpack.DefinePlugin({
