@@ -55,8 +55,10 @@ const container = (theme: App.ITheme) =>
         '& nav a': {
           padding: 32,
           width: '100%',
-          '&:nth-child(even)': {
-            backgroundColor: theme.backgroundLight,
+          $nest: {
+            '&:nth-child(even)': {
+              backgroundColor: theme.backgroundLight,
+            },
           },
         },
       },

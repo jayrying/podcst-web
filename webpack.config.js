@@ -149,12 +149,11 @@ module.exports = env => {
           swDest: resolve(distDir, 'sw.js'),
           clientsClaim: true,
           skipWaiting: true,
-          globIgnores: [ '**/now.json' ],
           navigateFallback: '/index.html',
           runtimeCaching: [
             {
               urlPattern: /.mp3(\?.*)?$/,
-              handler: 'cacheFirst',
+              handler: 'CacheFirst',
               options: {
                 cacheName: 'podcasts',
                 expiration: {
@@ -165,7 +164,7 @@ module.exports = env => {
             },
             {
               urlPattern: /^https:\/\/data.podcst.io\/.*/,
-              handler: 'staleWhileRevalidate',
+              handler: 'StaleWhileRevalidate',
               options: {
                 cacheName: 'data-api',
               },
@@ -193,10 +192,7 @@ module.exports = env => {
                 plugins: ['@babel/plugin-proposal-class-properties'],
                 presets: [
                   [
-                    '@babel/preset-env',
-                    {
-                      useBuiltIns: 'entry'
-                    }
+                    '@babel/preset-env'
                   ]
                 ],
               },
