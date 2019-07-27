@@ -51,9 +51,6 @@ const defaultAppState: IAppState = {
  */
 export const getDefaultState = (): IState => ({
   app: { ...defaultAppState, ...Storage.getAppState() },
-  router: {
-    path: '/',
-  },
   feed: {
     top: {
       loading: false,
