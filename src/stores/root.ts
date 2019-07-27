@@ -8,7 +8,7 @@ import { combineReducers, Dispatch } from 'redux';
 
 import { IEffectAction } from './utils';
 
-import { IRouterState, router, RouterActions, routerEpic, routeTitleSyncEpic } from './router';
+import { RouterActions, routerEpic, routeTitleSyncEpic } from './router';
 
 import { getEpisodesEpic, IPodcastsState, podcasts, PodcastsAction } from './podcasts';
 
@@ -68,7 +68,6 @@ export type Actions = StoreActions | IEffectAction;
  */
 export interface IState {
   app: IAppState;
-  router: IRouterState;
   feed: IFeedState;
   search: ISearchState;
   podcasts: IPodcastsState;
@@ -116,7 +115,6 @@ export const rootReducer = combineReducers<IState>({
   feed,
   player,
   podcasts,
-  router,
   search,
   subscriptions,
   toast,

@@ -10,8 +10,6 @@ import { Provider } from 'react-redux';
 
 import { forceRenderStyles } from 'typestyle';
 
-import { syncHistoryToStore } from './utils/history';
-
 import { fixGlobalStyles } from './utils/styles';
 
 import ConnectedApp from './containers/ConnectedApp';
@@ -26,7 +24,6 @@ interface IPodcastAppProps {
 
 const init = () => {
   const store = configureStore();
-  syncHistoryToStore(store);
 
   const appVersion = process.env.APP_VERSION!;
 
