@@ -190,7 +190,7 @@ module.exports = env => {
               loader: 'babel-loader',
               options: {
                 cacheDirectory: true,
-                plugins: ['@babel/plugin-proposal-class-properties', '@babel/plugin-transform-object-assign'],
+                plugins: ['@babel/plugin-proposal-class-properties'],
                 presets: [
                   [
                     '@babel/preset-env',
