@@ -12,7 +12,7 @@ import { App } from '../typings';
  */
 export const prefersLightTheme = matchMedia('(prefers-color-scheme: light)');
 
-type ThemeListener = (this: MediaQueryList, ev: MediaQueryListEvent) => MediaQueryList;
+type ThemeListener = (this: MediaQueryList, ev: MediaQueryListEvent) => void;
 
 function addThemeChangeListener(handler: ThemeListener) {
   prefersLightTheme.addListener(handler);
