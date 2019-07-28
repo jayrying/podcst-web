@@ -20,7 +20,7 @@ const distDir = resolve(__dirname, 'dist');
 
 const appUrl = 'https://' + (process.env.PODCST_URL || 'podcst.app');
 // TODO: temp hack const cdnUrl = process.env.PODCST_URL ? appUrl.replace('play', 'static') : 'https://static.podcst.app';
-const cdnUrl = 'https://podcst.app';
+const cdnUrl = '';
 
 const routes = [
   {
@@ -55,7 +55,7 @@ const routes = [
 
 const getPath = env => {
   const key = Object.keys(env)[0];
-  if (key === 'dev') {
+  if (key === 'dev' || true) {
     return '/';
   } else {
     return cdnUrl + '/';
