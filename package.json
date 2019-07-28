@@ -28,6 +28,7 @@
     "build:prod": "webpack --env.prod",
     "predeploy": "npm run build:prod",
     "deploy": "now",
+    "start": "npm run dev",
     "dev": "webpack-dev-server --config webpack.config.js --env.dev --hot --inline --host 0.0.0.0",
     "format": "prettier --write \"src/**/{*.ts,*.tsx}\"",
     "lint": "tslint --project tsconfig.json --fix"
