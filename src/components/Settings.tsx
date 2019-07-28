@@ -46,6 +46,7 @@ const container = (theme: App.ITheme) =>
   style(
     {
       ...fillVertically,
+      backgroundColor: theme.background,
       $nest: {
         '& nav': {
           ...fillVertically,
